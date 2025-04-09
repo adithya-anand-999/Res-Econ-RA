@@ -66,3 +66,8 @@ def snapshot_id_parse(snapshotID):
 
 
 print(snapshot_id_parse("s_m993ow1q27wmb1cluh"))
+
+df = pd.read_excel('res-econ_RA_data.xlsx', engine='openpyxl')
+column_6 = df.iloc[:, 5]
+
+print(column_6)
