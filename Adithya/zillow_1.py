@@ -3,7 +3,7 @@ from time import sleep
 import json
 
 required_keys = ["zestimate", "taxAssessedValue", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
-website_3_data_path = r"C:\Users\Adithya Anand\Documents\College\Junior Year\Res-Econ RA\Res-Econ-RA\Adithya\website_3_data.json"
+website_3_data_path = r"./Adithya/website_3_data.json"
 with open(website_3_data_path, "r") as file:
     content = file.read().strip()
     website_3_data = None if not content else json.load(file)
