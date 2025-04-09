@@ -17,11 +17,11 @@ required_keys = ["zestimate", "taxAssessedValue", "dateSoldString", "livingArea"
 # response = requests.post(url, headers=headers, params=params, json=data)
 # print(response.json())
 
-url = "https://api.brightdata.com/datasets/v3/snapshot/s_m993ow1q27wmb1cluh"
+# url = "https://api.brightdata.com/datasets/v3/snapshot/s_m993ow1q27wmb1cluh"
 
-headers = {"Authorization": "Bearer 1b7a56093c477c8f5515d144f4c071e8bc714258a3fb90c13a5a2e72fc7bb6ad"}
+# headers = {"Authorization": "Bearer 1b7a56093c477c8f5515d144f4c071e8bc714258a3fb90c13a5a2e72fc7bb6ad"}
 
-api_response = requests.request("GET", url, headers=headers)
+# api_response = requests.request("GET", url, headers=headers)
 
 response = api_response
 
