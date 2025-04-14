@@ -14,7 +14,7 @@ wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
 # Iterate over the rows starting from the second (assuming row 1 has headers).
-for row in range(52, ws.max_row + 1):
+for row in range(90, ws.max_row + 1):
     address = ws.cell(row=row, column=1).value  # Assuming addresses are in column A.
     # if not address:
     #     continue  # Skip rows without an address.

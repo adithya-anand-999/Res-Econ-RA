@@ -1,6 +1,7 @@
 import requests
 from time import sleep
 import json
+import pandas as pd
 
 required_keys = ["zestimate", "taxAssessedValue", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
 website_3_data_path = r"./Adithya/website_3_data.json"
@@ -65,9 +66,15 @@ def snapshot_id_parse(snapshotID):
 # print(zillow_api_call("https://www.zillow.com/homedetails/2506-Gordon-Cir-South-Bend-IN-46635/77050198_zpid/"))
 
 
-print(snapshot_id_parse("s_m993ow1q27wmb1cluh"))
+# print(snapshot_id_parse("s_m993ow1q27wmb1cluh"))
 
 df = pd.read_excel('res-econ_RA_data.xlsx', engine='openpyxl')
-column_6 = df.iloc[:, 5]
+column_6 = list(df.iloc[:, 5])[11:36]
 
-print(column_6)
+for addr in column_6[:3]:
+    website_3_data[addr] = snapshot_id_parse(zillow_api_call(addr))
+
+with open(website_3_data_path, "w") as f:
+    json.dump(website_3_data, f, indent=4)
+
+print("done writing and scraping")
