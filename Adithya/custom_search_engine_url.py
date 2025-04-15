@@ -6,39 +6,39 @@
  
 import requests
 # import json
-import string
+# import string
+import openpyxl
+import time
 
-API_KEY = ""
-CX = ""
+from config import API_KEY
+from config import CX
 
-def clean_string(input_string):
-    lower_string = input_string.lower()
-    remove_chars = string.punctuation + " "
-    translator = str.maketrans("", "", remove_chars)
-    cleaned_string = lower_string.translate(translator)
-    return cleaned_string
 
 def custom_SE(addr, key=API_KEY, cx=CX):
-    # print(1)
     url=f"https://www.googleapis.com/customsearch/v1?key={key}&cx={cx}&q={addr}"
-    # print(2)
-    # try:
-    response = requests.get(url=url).json()
-    # print(response)
-    clean_addr = clean_string(addr)
-    for obj in response['items']:
-        clean_obj_addr = obj['title'].split(" |")[0]
-        print(clean_obj_addr)
-        if(clean_addr==clean_string(clean_obj_addr)):
-            print(f"{addr} -> {obj['link']}")
-            return(obj['link'])
-    print("matching obj address not found")
-    return None
-    # except Exception as err:
-    #     print(f"{err} occurred when processing address: {addr}")
-    #     return None
+    try:
+        response = requests.get(url=url).json()
+        data = response['items'][0]['link']
+        print(f"{addr} → {data}")
+        return(data)
+    except Exception as err:
+        print(f"{err} occurred when processing address: {addr}")
+        return None
 
 
-
+# simple tests of the custom_SE function
 addrs = ["6 STANDISH CIR, ANDOVER, MA, 01810", "150 TRAINCROFT ST, MEDFORD, MA, 02155"]
 custom_SE(addrs[1])
+
+
+wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
+ws = wb.active
+
+for row in range(1,ws.max_row+1):
+    address = ws.cell(row=row, column=1).value
+    url = custom_SE(address)
+    ws.cell(row=row, column=7, value=url)
+    wb.save('res-econ_RA_data.xlsx')
+    time.sleep(1)
+
+print("Done updating Excel file.")
