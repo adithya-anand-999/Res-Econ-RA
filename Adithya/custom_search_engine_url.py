@@ -23,7 +23,7 @@ def custom_SE(addr, key=API_KEY, cx=CX):
 # addrs = ["6 STANDISH CIR, ANDOVER, MA, 01810", "150 TRAINCROFT ST, MEDFORD, MA, 02155"]
 # custom_SE(addrs[1])
 
-# code updates excel file res-econ_RA_data.xlsx. Commented out as no reason to run code more than once. All urls have been collected.
+# code updates excel file res-econ_RA_data.xlsx. Commented out as no reason to run code more than once.
 # wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 # ws = wb.active
 

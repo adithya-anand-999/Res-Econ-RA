@@ -24,12 +24,7 @@ for row in range(2,ws.max_row+1):
     try:
         url = ws.cell(row=row, column=7).value
         driver.get(url)
-        # time.sleep(5)
-        try:
-            WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.CSS_SELECTOR, "h1[data-testid='home-details-summary-headline']")))
-        except Exception as e:
-            print(f"Timeout waiting for Zillow content: {e}")
-            break
+        time.sleep(5)
         html = driver.page_source
         soup = BeautifulSoup(html, 'html.parser')
         print(soup.prettify())
