@@ -4,7 +4,7 @@ from time import sleep
 import openpyxl
 
 # data points we are collecting
-required_keys = ["zestimate", "taxAssessedValue", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
+required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
 
 # function which converts our url for an address to a unique snapshot id. More information about snapshot ID can be found <link>, it is a step in the data collection
 # framework found for Bright Data. Bright Data provides a third party zillow API we are using to collect information. 
@@ -44,7 +44,10 @@ def snapshot_id_parse(snapshotID):
         print(f"Scraping failed for snapshot {snapshotID}")
         return None
     
+    # debugging code for seeing complete json data object
     # print(data)
+    # print("data found, pause for debugging")
+    # sleep(30)
 
     payload = {}
     for key in required_keys:
