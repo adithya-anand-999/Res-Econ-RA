@@ -33,22 +33,29 @@ def snapshot_id_parse(snapshotID):
     snapshot_headers = {"Authorization": "Bearer 13045b9674ca543e98b3768901c6799a2b876aff0220e26d61c9dae63dfeec0a"}
     snapshot_data = requests.request('GET', snapshot_url, headers=snapshot_headers).json()
     retry_count = 0
-    while ('status' in snapshot_data or retry_count<3):
-        retry_count+=1
-        if retry_count>3: return("Scrapping for address has failed.")
-        print(f"Retrying {retry_count}, will sleep for 30 seconds")
-        sleep(30)   
-        snapshot_data = requests.request('GET', snapshot_url, headers=snapshot_headers).json()
-    readable_output = snapshot_data
 
+    while 'status' in snapshot_data and retry_count < 3:
+        retry_count += 1
+        print(f"Retrying {retry_count}, sleeping 30s…")
+        sleep(30)
+        snapshot_data = requests.get(snapshot_url, headers=snapshot_headers).json()
+
+    if 'status' in snapshot_data:
+        print(f"Scraping failed for snapshot {snapshotID}")
+        return None
+    
+    # print(snapshot_data)
+    # readable_output = snapshot_data
     payload = {}
     for key in required_keys:
-        payload[key] = readable_output.get(key, None)
-
+        payload[key] = snapshot_data.get(key, None)
+    print(payload)
     payload["heating"], payload["cooling"] = None, None
-    for dict in readable_output['interior_full']:
-        if dict['title'] == "Heating": payload['heating'] = dict['values'][0].split(": ")[1]
-        if dict['title'] == "Cooling": payload['cooling'] = dict['values'][0].split(": ")[1]
+    if "interior_full" in snapshot_data:
+        print(1)
+        for dict in snapshot_data['interior_full']:
+            if dict['title'] == "Heating": payload['heating'] = dict['values'][0].split(": ")[1]
+            if dict['title'] == "Cooling": payload['cooling'] = dict['values'][0].split(": ")[1]
     return payload
 
 # code to test functions    
@@ -59,16 +66,17 @@ def snapshot_id_parse(snapshotID):
 wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
-for row in range(2,ws.max_row+1):
+for row in range(5,6):
     url = ws.cell(row=row, column=6).value
-    # print(url)
+    print(url)
     data = snapshot_id_parse(zillow_api_call(url))
-    print(data)
+    # print(data)
+    if data == None: continue
     for i,point in enumerate(data.values()):
-        ws.cell(row=row, column=10+i, value=point if point else "None")
+        ws.cell(row=row, column=7+i, value=point if point else "None")
     wb.save('res-econ_RA_data.xlsx')
     print(f"data collection for {url} done")
-    sleep(30)
+    sleep(5)
 
 
 # df = pd.read_excel('res-econ_RA_data.xlsx', engine='openpyxl')
