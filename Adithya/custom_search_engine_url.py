@@ -27,10 +27,11 @@ def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
         for obj in response['items']: 
             comp_addr = obj['title'].split(" |")[0]
             comp_split = split_str(comp_addr)
+            comp_number = comp_split[0]
             comp_name = comp_split[1]
             comp_zip = comp_split[-1]
             # print(f"Checking: {number} == {comp_number}, {name} == {comp_name}, {zip} == {comp_zip}")
-            if number in comp_split and name == comp_name and zip == comp_zip: 
+            if number in comp_number and name == comp_name and zip == comp_zip: 
                 data = obj['link']
                 # print(f"{addr} → {data}")
                 return data
@@ -63,12 +64,11 @@ def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
 wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
-for row in range(2,ws.max_row+1):
+for row in range(205,ws.max_row+1):
     address = ws.cell(row=row, column=1).value
     url = custom_SE_with_str_check(address)
     print(f"{address} → {url}")
     ws.cell(row=row, column=7, value=url)
     wb.save('res-econ_RA_data.xlsx')
     time.sleep(1)
-
 print("Done updating Excel file.")
