@@ -14,9 +14,9 @@ def split_str(address):
 
 
 def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
-    if not addr:
-        print(f"no address")
-        return None
+    # if not addr:
+    #     print(f"no address")
+    #     return None
     url=f"https://www.googleapis.com/customsearch/v1?key={key}&cx={cx}&q={addr}"
     try:
         response = requests.get(url=url).json()
@@ -30,15 +30,14 @@ def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
             comp_number = comp_split[0]
             comp_name = comp_split[1]
             comp_zip = comp_split[-1]
-            # print(f"Checking: {number} == {comp_number}, {name} == {comp_name}, {zip} == {comp_zip}")
+            print(f"Checking: {number} == {comp_number}, {name} == {comp_name}, {zip} == {comp_zip}")
             if number in comp_number and name == comp_name and zip == comp_zip: 
                 data = obj['link']
                 # print(f"{addr} → {data}")
                 return data
-        return None
     except Exception as err:
         print(f"{err} occurred when processing address: {addr}")
-        return None
+    return "None"
 
 # addrs = ["6 STANDISH CIR, ANDOVER, MA, 01810", "150 TRAINCROFT ST, MEDFORD, MA, 02155", "16 HARRIS LN, HARVARD, MA, 01451", "24 GREEN VALLEY RD, MEDWAY, MA, 02053"]
 # custom_SE_with_str_check(addrs[3])
@@ -64,11 +63,11 @@ def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
 wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
-for row in range(205,ws.max_row+1):
+for row in range(2,205):
     address = ws.cell(row=row, column=1).value
     url = custom_SE_with_str_check(address)
     print(f"{address} → {url}")
-    ws.cell(row=row, column=7, value=url)
+    ws.cell(row=row, column=6, value=url)
     wb.save('res-econ_RA_data.xlsx')
     time.sleep(1)
 print("Done updating Excel file.")
