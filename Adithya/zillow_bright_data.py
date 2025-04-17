@@ -74,10 +74,13 @@ ws = wb.active
 
 # loops over the rows in our excel. Bounds are inclusive of first arg, exclusive of second arg. Use the row numbers found in the excel. So to include row 3 you
 # would set your first arg to 3.
-for row in range(5,6):
+for row in range(47,57):
     # grab the url for 'row' found in column 6
     url = ws.cell(row=row, column=6).value
-    print(f"Collecting {url}")
+
+    # if url does not exist skips to next url
+    if url == None: continue
+    print(f"Collecting row {row} with url = {url}")
 
     # collect the data for the url
     data = snapshot_id_parse(zillow_api_call(url))
@@ -92,7 +95,7 @@ for row in range(5,6):
     # as changes have been made to the excel in the above code, save the changes
     wb.save('res-econ_RA_data.xlsx')
     
-    print(f"data collection for {url} done")
+    # print(f"data collection for {url} done")
     sleep(5)
 
 print("Data collection finished!")
