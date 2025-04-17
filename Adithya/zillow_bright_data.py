@@ -45,10 +45,10 @@ def snapshot_id_parse(snapshotID):
     for key in required_keys:
         payload[key] = readable_output.get(key, None)
 
-    payload["heating_val"], payload["cooling_val"] = None, None
+    payload["heating"], payload["cooling"] = None, None
     for dict in readable_output['interior_full']:
-        if dict['title'] == "Cooling": payload['cooling'] = dict['values'][0].split(": ")[1]
         if dict['title'] == "Heating": payload['heating'] = dict['values'][0].split(": ")[1]
+        if dict['title'] == "Cooling": payload['cooling'] = dict['values'][0].split(": ")[1]
     return payload
 
 # code to test functions    
@@ -60,10 +60,13 @@ wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
 for row in range(2,ws.max_row+1):
-    url = ws.cell(row=row, column=7).value
-    print(url)
+    url = ws.cell(row=row, column=6).value
+    # print(url)
     data = snapshot_id_parse(zillow_api_call(url))
     print(data)
+    for i,point in enumerate(data.values()):
+        ws.cell(row=row, column=10+i, value=point if point else "None")
+    wb.save('res-econ_RA_data.xlsx')
     print(f"data collection for {url} done")
     sleep(30)
 
