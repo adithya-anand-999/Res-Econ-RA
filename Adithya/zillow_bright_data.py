@@ -66,7 +66,7 @@ def snapshot_id_parse(snapshotID):
 wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
-for row in range(5,6):
+for row in range(11,13):
     url = ws.cell(row=row, column=6).value
     print(url)
     data = snapshot_id_parse(zillow_api_call(url))
