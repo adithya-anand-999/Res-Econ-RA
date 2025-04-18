@@ -74,7 +74,7 @@ ws = wb.active
 
 # loops over the rows in our excel. Bounds are inclusive of first arg, exclusive of second arg. Use the row numbers found in the excel. So to include row 3 you
 # would set your first arg to 3.
-for row in range(82,100):
+for row in range(100,121):
     # grab the url for 'row' found in column 6
     url = ws.cell(row=row, column=6).value
 
