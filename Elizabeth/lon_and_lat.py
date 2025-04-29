@@ -16,7 +16,7 @@ wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
 # code to test our function 
-test_addr = ws.cell(row=8, column=1).value()
+test_addr = ws.cell(row=8, column=1).value
 print(get_lat_long_google(test_addr))
 
 
