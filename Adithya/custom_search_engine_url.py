@@ -22,19 +22,19 @@ def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
         response = requests.get(url=url).json()
         orig_split = split_str(addr)
         number = orig_split[0]
-        name = orig_split[1] # maybe an issue if street name longer than 1 word
-        zip = orig_split[-1] # used -1 in case of different length arrays (e.g. due to additional words in address)
+        name = orig_split[1] # only checking first word of street 
+        zip = orig_split[-1] 
         for obj in response['items']: 
             comp_addr = obj['title'].split(" |")[0]
             comp_split = split_str(comp_addr)
             comp_number = comp_split[0]
             comp_name = comp_split[1]
             comp_zip = comp_split[-1]
-            print(f"Checking: {number} == {comp_number}, {name} == {comp_name}, {zip} == {comp_zip}")
-            if number in comp_number and name == comp_name and zip == comp_zip: 
-                data = obj['link']
+            # print(f"Checking: {number} == {comp_number}, {name} == {comp_name}, {zip} == {comp_zip}")
+            if number in comp_number and name == comp_name and zip == comp_zip: # checking if the target number occurs in range of numbers for this result
+                target_url = obj['link']
                 # print(f"{addr} → {data}")
-                return data
+                return target_url
     except Exception as err:
         print(f"{err} occurred when processing address: {addr}")
     return "None"

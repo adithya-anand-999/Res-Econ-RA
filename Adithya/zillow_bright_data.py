@@ -3,7 +3,7 @@ import requests
 from time import sleep
 import openpyxl
 
-from config import BRIGHT_DATA
+from config import BRIGHT_DATA # API key for Bright Data APIs
 
 # data points we are collecting
 required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
@@ -12,6 +12,7 @@ required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldSt
 # framework found for Bright Data. Bright Data provides a third party zillow API we are using to collect information. 
 # TODO: write comments explaining how the code in the function works.
 def zillow_api_call(addr_url):
+    # boilerplate code from Bright Data website 
     url = "https://api.brightdata.com/datasets/v3/trigger"
     headers = {
         "Authorization": BRIGHT_DATA,
@@ -25,15 +26,18 @@ def zillow_api_call(addr_url):
         {"url":addr_url},
     ]
     response = requests.post(url, headers=headers, params=params, json=data)
-    return(response.json()['snapshot_id'])
+    return(response.json()['snapshot_id'])  # snapshot_id is a pointer to a zillow data object for this address
 
 # function parses the snapshot ID, producing a json object with all the data for the address. From this we collect the specific data points required.
 
 # TODO: write comments explaining how the code in the function works.
 def snapshot_id_parse(snapshotID):
+    # boilerplate code from Bright Data
     url = f"https://api.brightdata.com/datasets/v3/snapshot/{snapshotID}"
     headers = {"Authorization": BRIGHT_DATA}
     data = requests.request('GET', url, headers=headers).json()
+
+    
     retry_count = 0
 
     while 'status' in data and retry_count < 3:
