@@ -64,7 +64,7 @@ ws = wb.active
 # split_str(addrs[0])
 
 # converts an address to a zillow URL
-test_addr = ws.cell(row=1, column=6).value
+test_addr = ws.cell(row=2, column=1).value
 test_url = custom_SE_with_str_check(test_addr)
 print(test_url)
 
