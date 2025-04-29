@@ -39,12 +39,8 @@ def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
         print(f"{err} occurred when processing address: {addr}")
     return "None"
 
-# addrs = ["6 STANDISH CIR, ANDOVER, MA, 01810", "150 TRAINCROFT ST, MEDFORD, MA, 02155", "16 HARRIS LN, HARVARD, MA, 01451", "24 GREEN VALLEY RD, MEDWAY, MA, 02053"]
-# custom_SE_with_str_check(addrs[3])
-# split_str(addrs[0])
 
-# code gets correct url for 16 Harris (address with inital issue) and with 2-word street names 
-
+# Older basic API code to collect zillow url for an address
 # def custom_SE(addr, key=API_KEY, cx=CX):
 #     url=f"https://www.googleapis.com/customsearch/v1?key={key}&cx={cx}&q={addr}"
 #     try:
@@ -57,17 +53,29 @@ def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
 #         return None
 
 
-# simple tests of the custom_SE function
 
-# code updates excel file res-econ_RA_data.xlsx. Commented out as no reason to run code more than once.
+# open excel
 wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
-for row in range(2,205):
-    address = ws.cell(row=row, column=1).value
-    url = custom_SE_with_str_check(address)
-    print(f"{address} → {url}")
-    ws.cell(row=row, column=6, value=url)
-    wb.save('res-econ_RA_data.xlsx')
-    time.sleep(1)
-print("Done updating Excel file.")
+# simple tests of the custom_SE function
+# addrs = ["6 STANDISH CIR, ANDOVER, MA, 01810", "150 TRAINCROFT ST, MEDFORD, MA, 02155", "16 HARRIS LN, HARVARD, MA, 01451", "24 GREEN VALLEY RD, MEDWAY, MA, 02053"]
+# custom_SE_with_str_check(addrs[3])
+# split_str(addrs[0])
+
+# converts an address to a zillow URL
+test_addr = ws.cell(row=1, column=6).value
+test_url = custom_SE_with_str_check(test_addr)
+print(test_url)
+
+
+
+# code updates excel file res-econ_RA_data.xlsx. Commented out as no reason to run code more than once.
+# for row in range(2,205):
+#     address = ws.cell(row=row, column=1).value
+#     url = custom_SE_with_str_check(address)
+#     print(f"{address} → {url}")
+#     ws.cell(row=row, column=6, value=url)
+#     wb.save('res-econ_RA_data.xlsx')
+#     time.sleep(1)
+# print("Done updating Excel file.")

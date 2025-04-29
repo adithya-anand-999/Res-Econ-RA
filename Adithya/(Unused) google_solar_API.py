@@ -22,22 +22,26 @@ def solar_api(lat, lng):
     except Exception as e:
         print(f"an error occurred {e}")
 
-# individual testing of code
-# lat = 42.3202535
-# long = -71.3471081
-# print(solar_api(lat,long))
-
-
-# excel writing of code
+# open excel
 wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
-for row in range(4,55):
-    lat = ws.cell(row=row, column=2).value
-    long = ws.cell(row=row, column=3).value
-    data = solar_api(lat,long)
-    print(f"{lat,long} → {data}")
-    ws.cell(row=row, column=6, value=data)
-    wb.save('res-econ_RA_data.xlsx')
-    time.sleep(1)
-print("Done updating Excel file.")
+# Code to test our functions
+# lat = 42.3202535
+# long = -71.3471081
+# print(solar_api(lat,long))
+test_lat, test_lon = ws.cell(row=4, column=2).value, ws.cell(row=4, column=3).value
+test_data = solar_api(test_lat, test_lon)
+print(test_data)
+
+
+# excel writing of code
+# for row in range(4,55):
+#     lat = ws.cell(row=row, column=2).value
+#     long = ws.cell(row=row, column=3).value
+#     data = solar_api(lat,long)
+#     print(f"{lat,long} → {data}")
+#     ws.cell(row=row, column=6, value=data)
+#     wb.save('res-econ_RA_data.xlsx')
+#     time.sleep(1)
+# print("Done updating Excel file.")

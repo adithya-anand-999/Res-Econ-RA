@@ -57,18 +57,25 @@ async def scrape_roof_space(addr_num,lat,lon):
 # asyncio.run(scrape_roof_space("6","42.6576", "-71.1582"))
 
 
-
+# open excel file
 wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
-for row in range(150,211):
-    addr = ws.cell(row=row, column=1).value
-    # print(addr_num)
-    lat = ws.cell(row=row, column=2).value
-    long = ws.cell(row=row, column=3).value
-    data = asyncio.run(scrape_roof_space(addr.split(" ")[0],lat,long))
-    print(f"{addr} → {data}")
-    ws.cell(row=row, column=6, value=data)
-    wb.save('res-econ_RA_data.xlsx')
-    time.sleep(1)
-print("Done updating Excel file.")
+# code to test our function
+test_url = ws.cell(row=4, column=6).value
+test_data = snapshot_id_parse(zillow_api_call(test_url))
+print(test_data)
+
+
+# writing results to excel
+# for row in range(150,211):
+#     addr = ws.cell(row=row, column=1).value
+#     # print(addr_num)
+#     lat = ws.cell(row=row, column=2).value
+#     long = ws.cell(row=row, column=3).value
+#     data = asyncio.run(scrape_roof_space(addr.split(" ")[0],lat,long))
+#     print(f"{addr} → {data}")
+#     ws.cell(row=row, column=6, value=data)
+#     wb.save('res-econ_RA_data.xlsx')
+#     time.sleep(1)
+# print("Done updating Excel file.")

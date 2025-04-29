@@ -3,6 +3,8 @@ import requests
 from time import sleep
 import openpyxl
 
+from config import BRIGHT_DATA
+
 # data points we are collecting
 required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
 
@@ -12,7 +14,7 @@ required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldSt
 def zillow_api_call(addr_url):
     url = "https://api.brightdata.com/datasets/v3/trigger"
     headers = {
-        "Authorization": "Bearer 13045b9674ca543e98b3768901c6799a2b876aff0220e26d61c9dae63dfeec0a",
+        "Authorization": BRIGHT_DATA,
         "Content-Type": "application/json",
     }
     params = {
@@ -30,7 +32,7 @@ def zillow_api_call(addr_url):
 # TODO: write comments explaining how the code in the function works.
 def snapshot_id_parse(snapshotID):
     url = f"https://api.brightdata.com/datasets/v3/snapshot/{snapshotID}"
-    headers = {"Authorization": "Bearer 13045b9674ca543e98b3768901c6799a2b876aff0220e26d61c9dae63dfeec0a"}
+    headers = {"Authorization": BRIGHT_DATA}
     data = requests.request('GET', url, headers=headers).json()
     retry_count = 0
 
@@ -63,39 +65,48 @@ def snapshot_id_parse(snapshotID):
             if dict['title'] == "Cooling": payload['cooling'] = dict['values'][0].split(": ")[1]
     return payload
 
-# code to test functions    
-# snapshot_id_parse(zillow_api_call("https://www.zillow.com/homedetails/150-Traincroft-NW-Medford-MA-02155/56277119_zpid/"))
-# print(snapshot_id_parse(zillow_api_call("https://www.zillow.com/homedetails/2506-Gordon-Cir-South-Bend-IN-46635/77050198_zpid/")))
-# print(zillow_api_call("https://www.zillow.com/homedetails/2506-Gordon-Cir-South-Bend-IN-46635/77050198_zpid/"))
 
 # open our excel doc
 wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
-# loops over the rows in our excel. Bounds are inclusive of first arg, exclusive of second arg. Use the row numbers found in the excel. So to include row 3 you
-# would set your first arg to 3.
-for row in range(155,211):
-    # grab the url for 'row' found in column 6
-    url = ws.cell(row=row, column=6).value
+# Code to test our functions
+# snapshot_id_parse(zillow_api_call("https://www.zillow.com/homedetails/150-Traincroft-NW-Medford-MA-02155/56277119_zpid/"))
+# print(snapshot_id_parse(zillow_api_call("https://www.zillow.com/homedetails/2506-Gordon-Cir-South-Bend-IN-46635/77050198_zpid/")))
+# print(zillow_api_call("https://www.zillow.com/homedetails/2506-Gordon-Cir-South-Bend-IN-46635/77050198_zpid/"))
 
-    # if url does not exist skips to next url
-    if url == "None": continue
-    print(f"Collecting row {row} with url = {url}")
+# converts a URL into final zillow data object with the required fields
+test_url = ws.cell(row=4, column=6).value
+test_data = snapshot_id_parse(zillow_api_call(test_url))
+print(test_data)
 
-    # collect the data for the url
-    data = snapshot_id_parse(zillow_api_call(url))
 
-    # if data collection for the url failed, snapshot_id_parse will return None. Then this conditional will run skipping this row as no data has been collected.
-    if data == None: continue
 
-    # for each data point, write to a separate column in our excel, if the data point does not exist we write "None"
-    for i,point in enumerate(data.values()):
-        ws.cell(row=row, column=7+i, value=point if point else "None")
+
+# # loops over the rows in our excel. Bounds are inclusive of first arg, exclusive of second arg. Use the row numbers found in the excel. So to include row 3 you
+# # would set your first arg to 3.
+# for row in range(155,211):
+#     # grab the url for 'row' found in column 6
+#     url = ws.cell(row=row, column=6).value
+
+#     # if url does not exist skips to next url
+#     if url == "None": continue
+#     print(f"Collecting row {row} with url = {url}")
+
+#     # collect the data for the url
+#     data = snapshot_id_parse(zillow_api_call(url))
+
+#     # if data collection for the url failed, snapshot_id_parse will return None. Then this conditional will run skipping this row as no data has been collected.
+#     if data == None: continue
+
+#     # for each data point, write to a separate column in our excel, if the data point does not exist we write "None"
+#     for i,point in enumerate(data.values()):
+#         ws.cell(row=row, column=7+i, value=point if point else "None")
     
-    # as changes have been made to the excel in the above code, save the changes
-    wb.save('res-econ_RA_data.xlsx')
+#     # as changes have been made to the excel in the above code, save the changes
+#     wb.save('res-econ_RA_data.xlsx')
     
-    # print(f"data collection for {url} done")
-    sleep(5)
+#     # print(f"data collection for {url} done")
+#     sleep(5)
 
-print("Data collection finished!")
+# print("Data collection finished!")
