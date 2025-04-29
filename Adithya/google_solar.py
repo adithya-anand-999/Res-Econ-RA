@@ -17,25 +17,24 @@ async def scrape_roof_space(addr_num,lat,lon):
     url = f"https://sunroof.withgoogle.com/building/{str(round(float(lat),4))}/{str(round(float(lon),4))}/#?f=buy"
 
     try:
+        # make a request to the url
         response = await asession.get(url)
         await response.html.arender(timeout=20)
         soup = BeautifulSoup(response.html.html, "html.parser")
         # print(soup)
 
         inp = soup.find("input", attrs={"aria-label": True})
-        if not inp:
-            inp = soup.find("input", attrs={"placeholder": True})
+        if not inp: inp = soup.find("input", attrs={"placeholder": True})
 
         if inp:
-            address = inp.get("aria-label") or inp.get("placeholder")
+            address = inp.get("aria-label") or inp.get("placeholder") # as there are 2 options to where the address could be found
             # print("Address:", address)
-            # print(address.split(" ")[0])
-            if addr_num != address.split(" ")[0]: return "None"
+            # print(addr_num, address.split(" ")[0])
+            if addr_num not in address.split(" ")[0]: return "None"
         else:
             print("Couldn’t find the address input in the page.")
             return "None"
         
-
 
         upper_li = soup.find("li", attrs={"ng-if": "$ctrl.derivedValues.getMaxArrayAreaSqft()"})
         if upper_li:
@@ -62,20 +61,21 @@ wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 ws = wb.active
 
 # code to test our function
-test_url = ws.cell(row=4, column=6).value
-test_data = snapshot_id_parse(zillow_api_call(test_url))
+test_lat, test_lon = ws.cell(row=4, column=2).value, ws.cell(row=4, column=3).value
+test_addr = ws.cell(row=4, column=1).value
+test_data = data = asyncio.run(scrape_roof_space(test_addr.split(" ")[0],test_lat,test_lon))
 print(test_data)
 
 
 # writing results to excel
-# for row in range(150,211):
+# for row in range(2,211):
 #     addr = ws.cell(row=row, column=1).value
 #     # print(addr_num)
 #     lat = ws.cell(row=row, column=2).value
 #     long = ws.cell(row=row, column=3).value
 #     data = asyncio.run(scrape_roof_space(addr.split(" ")[0],lat,long))
 #     print(f"{addr} → {data}")
-#     ws.cell(row=row, column=6, value=data)
+#     ws.cell(row=row, column=5, value=data)
 #     wb.save('res-econ_RA_data.xlsx')
 #     time.sleep(1)
 # print("Done updating Excel file.")
