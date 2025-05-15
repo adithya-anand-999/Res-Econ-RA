@@ -23,7 +23,7 @@ def get_data(given_excel_path, new_excel_name):
         ws.cell(row=row, column=9, value=asyncio.run(get_roof_space(addr.split(" ")[0],lat,lon)))
         url = get_zillow_url(addr)
         ws.cell(row=row, column=10, value=url)
-        ws.cell(row=row, column=11, value=get_zillow_data(get_snapshot_id(url)))
+        # ws.cell(row=row, column=11, value=get_zillow_data(get_snapshot_id(url)))
         wb.save(given_excel_path)
         time.sleep(1)
         print(f"Row {row} completed")
