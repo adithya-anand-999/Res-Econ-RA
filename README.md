@@ -18,7 +18,7 @@ NREL offers publicly available API for their calculator used in our function get
 
 #### Google's Project Sunroof
 
-#### Website Three: Zillow
+#### Zillow
 
 
 ## Usage Instructions
