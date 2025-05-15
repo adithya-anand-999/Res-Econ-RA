@@ -16,7 +16,7 @@ def get_data(given_excel_path, new_excel_name):
 
     num_rows = ws.max_row
 
-    for row in range(2,num_rows):
+    for row in range(205,num_rows):
         addr = ws.cell(row=row, column=1).value
         lat, lon = get_coordinates(addr)
         ws.cell(row=row, column=8, value=get_capacity_factor(lat,lon))
@@ -26,6 +26,7 @@ def get_data(given_excel_path, new_excel_name):
         ws.cell(row=row, column=11, value=get_zillow_data(get_snapshot_id(url)))
         wb.save(given_excel_path)
         time.sleep(1)
+        print(f"Row {row} completed")
     print("Done updating Excel file.")
 
 
