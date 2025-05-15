@@ -2,10 +2,10 @@
 API and web scraping data collection conducted with the Resources Economics Department at the University of Massachusetts — Amherst. 
 
 ## Overview
-The attached code gathers data across three different websites, NREL's PVWatts Calculator, Google's Project Sunroof, and Zillow.  Below please find the setup and methodology implemented for each website: 
+The attached code gathers data from a list of addresses across three different websites, NREL's PVWatts Calculator, Google's Project Sunroof, and Zillow.  Below please find the setup and methodology implemented for each website: 
 
 ### Setup: Longitude and Latitude
-
+PVWatts and Project Sunroof both utilize coordinates to access a locations associated data.  Thus, we first converted 
 
 
 ### Wesbite One: NREL's PVWatts Calculator
