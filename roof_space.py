@@ -1,3 +1,5 @@
+# A
+
 import os
 import openpyxl
 import time
@@ -13,7 +15,7 @@ import asyncio
 
 asession = AsyncHTMLSession()
 
-async def scrape_roof_space(addr_num,lat,lon):
+async def get_roof_space(addr_num,lat,lon):
     url = f"https://sunroof.withgoogle.com/building/{str(round(float(lat),4))}/{str(round(float(lon),4))}/#?f=buy"
 
     try:
@@ -63,7 +65,7 @@ ws = wb.active
 # code to test our function
 test_lat, test_lon = ws.cell(row=4, column=2).value, ws.cell(row=4, column=3).value
 test_addr = ws.cell(row=4, column=1).value
-test_data = data = asyncio.run(scrape_roof_space(test_addr.split(" ")[0],test_lat,test_lon))
+test_data = data = asyncio.run(get_roof_space(test_addr.split(" ")[0],test_lat,test_lon))
 print(test_data)
 
 

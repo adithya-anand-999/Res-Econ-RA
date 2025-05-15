@@ -1,4 +1,6 @@
 # This is a code file for working on the custom search engine google API to create a more robust system for URL collections. 
+# E
+
 import requests
 import openpyxl
 import time
@@ -13,7 +15,7 @@ def split_str(address):
     return cleaned.split()
 
 
-def custom_SE_with_str_check(addr, key=API_KEY, cx=CX):
+def get_zillow_url(addr, key=API_KEY, cx=CX):
     # if not addr:
     #     print(f"no address")
     #     return None
@@ -65,7 +67,7 @@ ws = wb.active
 
 # converts an address to a zillow URL
 test_addr = ws.cell(row=2, column=1).value
-test_url = custom_SE_with_str_check(test_addr)
+test_url = get_zillow_url(test_addr)
 print(test_url)
 
 

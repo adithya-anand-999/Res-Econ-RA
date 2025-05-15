@@ -1,3 +1,5 @@
+# E
+
 import urllib.request
 import json
 import pandas as pd
@@ -16,7 +18,7 @@ information from the list to an excel document such that each field
 in the dictionary is a column. 
 """
 
-def get_cap_factor(lat, lon): 
+def get_capacity_factor(lat, lon): 
     pv_url = f"https://developer.nrel.gov/api/pvwatts/v8.json?api_key={PV_API_KEY}&lat={lat}&lon={lon}&system_capacity=4&module_type=0&losses=14.08&tilt=20&azimuth=180&array_type=0" 
     response = urllib.request.urlopen(pv_url)
     pv_data = json.loads(response.read())
@@ -43,7 +45,7 @@ ws = wb.active
 test_addr = ws.cell(row=8, column=1).value
 lat = ws.cell(row=8, column=2).value
 lon = ws.cell(row=8, column=3).value
-print(get_cap_factor(lat, lon))
+print(get_capacity_factor(lat, lon))
 
 # for row in range(2,5):
 #    addr = ws.cell(row=row, column=1).value

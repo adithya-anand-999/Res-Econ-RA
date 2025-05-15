@@ -1,3 +1,5 @@
+# A
+
 # required libraries we use.
 import requests
 from time import sleep
@@ -11,7 +13,7 @@ required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldSt
 # function which converts our url for an address to a unique snapshot id. More information about snapshot ID can be found <link>, it is a step in the data collection
 # framework found for Bright Data. Bright Data provides a third party zillow API we are using to collect information. 
 # TODO: write comments explaining how the code in the function works.
-def zillow_api_call(addr_url):
+def get_snapshot_id(addr_url):
     # boilerplate code from Bright Data website 
     url = "https://api.brightdata.com/datasets/v3/trigger"
     headers = {
@@ -31,7 +33,7 @@ def zillow_api_call(addr_url):
 # function parses the snapshot ID, producing a json object with all the data for the address. From this we collect the specific data points required.
 
 # TODO: write comments explaining how the code in the function works.
-def snapshot_id_parse(snapshotID):
+def get_zillow_data(snapshotID):
     # boilerplate code from Bright Data
     url = f"https://api.brightdata.com/datasets/v3/snapshot/{snapshotID}"
     headers = {"Authorization": BRIGHT_DATA}
@@ -81,7 +83,7 @@ ws = wb.active
 
 # converts a URL into final zillow data object with the required fields
 test_url = ws.cell(row=4, column=6).value
-test_data = snapshot_id_parse(zillow_api_call(test_url))
+test_data = get_zillow_data(get_snapshot_id(test_url))
 print(test_data)
 
 
