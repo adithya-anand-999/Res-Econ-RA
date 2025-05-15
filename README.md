@@ -6,7 +6,7 @@ The attached code gathers data from a list of addresses across three different w
 
 ### Setup:
 
-#### config.py
+#### API Configurations 
 
 #### Coordinates
 PVWatts and Project Sunroof both utilize coordinates to access a locations associated data.  Thus, we first developed the function get_coordinates(), which converts the list of addresses to coordinates via the Google Maps API.
