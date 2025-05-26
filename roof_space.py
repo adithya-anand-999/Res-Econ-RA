@@ -10,20 +10,21 @@ nest_asyncio.apply()
 from requests_html import AsyncHTMLSession
 from bs4 import BeautifulSoup
 import asyncio
-# import pyppeteer.errors
-# os.environ["PYPPETEER_EXECUTABLE_PATH"] = r" C:\Program Files\Google\Chrome\Application\chrome.exe"
 
-asession = AsyncHTMLSession()
+# asession = AsyncHTMLSession()
+
+from playwright.async_api import async_playwright
 
 async def get_roof_space(addr_num,lat,lon):
     url = f"https://sunroof.withgoogle.com/building/{str(round(float(lat),4))}/{str(round(float(lon),4))}/#?f=buy"
 
-    try:
-        # make a request to the url
-        response = await asession.get(url)
-        await response.html.arender(timeout=20)
-        soup = BeautifulSoup(response.html.html, "html.parser")
-        # print(soup)
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        await page.goto(url, timeout=30000)
+        html = await page.content()
+        await browser.close()
+        soup = BeautifulSoup(html, "html.parser")
 
         inp = soup.find("input", attrs={"aria-label": True})
         if not inp: inp = soup.find("input", attrs={"placeholder": True})
@@ -51,11 +52,6 @@ async def get_roof_space(addr_num,lat,lon):
         else:
             print("Upper div with specified ng-if not found.")
             return("Upper div with specified ng-if not found.")
-    except Exception as e:
-        print(f"Uncaught error {e} occurred")
-        return("None")
-
-# asyncio.run(scrape_roof_space("6","42.6576", "-71.1582"))
 
 
 # open excel file
