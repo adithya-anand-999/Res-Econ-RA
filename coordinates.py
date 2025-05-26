@@ -13,18 +13,11 @@ def get_coordinates(address, api_key=API_KEY):
         return (location['lat'], location['lng'])
     return (None)
 
-# open excel
+# code to test our function 
 # wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 # ws = wb.active
-
-# code to test our function 
 # test_addr = ws.cell(row=8, column=1).value
 # print(get_coordinates(test_addr))
-
-
-# for row in range(2,5):
-#     addr = ws.cell(row=row, column=1).value
-#     print(get_lat_long_google(addr))
 
 
 

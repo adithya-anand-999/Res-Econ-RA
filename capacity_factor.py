@@ -2,7 +2,6 @@
 
 import urllib.request
 import json
-import pandas as pd
 from config import PV_API_KEY
 import openpyxl
 
@@ -24,35 +23,10 @@ def get_capacity_factor(lat, lon):
     pv_data = json.loads(response.read())
     return pv_data["outputs"]["capacity_factor"]
 
-
-# original code for writing to excel from json file
-# with_cap_factor = []
-# for address, (lat, lon) in address_cord.items(): 
-#    capacity_factor = get_cap_factor(lat, lon)
-#    with_cap_factor.append({
-#       "Address": address,
-#       "Latitude": lat,
-#       "Longitude": lon,
-#       "Capacity Factor": capacity_factor
-#    })
-
-
-# open excel
-# wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
-# ws = wb.active
-
 # code to test our function 
 # test_addr = ws.cell(row=8, column=1).value
 # lat = ws.cell(row=8, column=2).value
 # lon = ws.cell(row=8, column=3).value
 # print(get_capacity_factor(lat, lon))
-
-# for row in range(2,5):
-#    addr = ws.cell(row=row, column=1).value
-#    lat = ws.cell(row=row, column=2).value
-#    long = ws.cell(row=row, column=3).value
-
-#    print(get_cap_factor(lat, long))
-
 
 
