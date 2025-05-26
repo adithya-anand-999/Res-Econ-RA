@@ -18,7 +18,7 @@ In total, the code requires four keys: one for PVWatts, one to interact with Goo
 
 3. Upon receipt of the emailed API key, please store the key in config.py as a variable named PV_API_KEY
 
-4. For further details regarding the API used, return to the top menu of [NREL’s PVWatts V8 API Developer Network page](https://developer.nrel.gov/docs/solar/pvwatts/), select [APIs & Documentation](https://developer.nrel.gov/docs/), select [Solar](https://developer.nrel.gov/docs/solar/), then [PVWatts](https://developer.nrel.gov/docs/solar/pvwatts/), the attached code currently uses [PVWatts V8](https://developer.nrel.gov/docs/solar/pvwatts/v8/), the current version of the PVWatts API
+4. For further details regarding the API used, return to the top menu of [NREL’s PVWatts V8 API Developer Network page](https://developer.nrel.gov/docs/solar/pvwatts/), select [APIs & Documentation](https://developer.nrel.gov/docs/), select [Solar](https://developer.nrel.gov/docs/solar/), then [PVWatts](https://developer.nrel.gov/docs/solar/pvwatts/), the present code uses [PVWatts V8](https://developer.nrel.gov/docs/solar/pvwatts/v8/), the current version of the PVWatts API
 
 #### Google API Key
 
