@@ -12,7 +12,7 @@ In total, the code requires four keys: one for PVWatts, one to interact with Goo
 
 #### PVWatts API Key
 
-1. From [NREL’s PVWatts Calculator](https://pvwatts.nrel.gov/pvwatts.php) , click Help, then About, then within the Information for Developers subheading, click the hyperlinked [PVWatts V8 API](https://developer.nrel.gov/docs/solar/pvwatts/) to access the Developer Network page
+1. From [NREL’s PVWatts Calculator](https://pvwatts.nrel.gov/pvwatts.php), click Help, then About, within the Information for Developers subheading, click the hyperlinked [PVWatts V8 API](https://developer.nrel.gov/docs/solar/pvwatts/) to access the [Developer Network page](https://developer.nrel.gov/docs/solar/pvwatts/)
 
 2. From the top menu of [NREL’s PVWatts V8 API Developer Network page](https://developer.nrel.gov/docs/solar/pvwatts/), select [Key Signup](https://developer.nrel.gov/signup ) and enter your information to receive an API key via email
 
