@@ -1,7 +1,8 @@
 # Residential Solar PV Data Collection 
+*Residential solar PV data collection conducted in support of research at the University of Massachusetts — Amherst, Department of Resource Economics.*  
 
 ## Overview
-Residential solar PV data collection conducted in support of research at the University of Massachusetts — Amherst, Department of Resource Economics.  The attached code gathers various data points for a list of addresses across three different websites: NREL's PVWatts Calculator, Google's Project Sunroof, and Zillow. The code for extracting the data from each website is split into individual files, however, the code can be run, and data collected, from data.py.
+The attached code gathers various data points for a list of addresses across three different websites: NREL's PVWatts Calculator, Google's Project Sunroof, and Zillow. The code for extracting the data from each website is split into individual files, however, the code can be run, and data collected, from data.py.
 
 ## Usage Instructions
 Below please find the setup and methodology implemented for each website.  Please see inline comments for detailed instructions on running the code. 
