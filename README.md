@@ -1,29 +1,30 @@
 # Residential Solar PV Data Collection 
-API and web scraping data collection conducted with the Department of Resources Economics at the University of Massachusetts — Amherst. 
 
 ## Overview
-The attached code gathers data from a list of addresses across three different websites: NREL's PVWatts Calculator, Google's Project Sunroof, and Zillow.  The code for extracting the data from each website is split into individual files, however, the code can be run in its entirety from data.py.  
+Residential solar PV data collection conducted in support of research at the University of Massachusetts — Amherst, Department of Resource Economics.  The attached code gathers various data points for a list of addresses across three different websites: NREL's PVWatts Calculator, Google's Project Sunroof, and Zillow. The code for extracting the data from each website is split into individual files, however, the code can be run, and data collected, from data.py.
 
 ## Usage Instructions
 Below please find the setup and methodology implemented for each website.  Please see inline comments for detailed instructions on running the code. 
 
-### Setup
+## Setup
 
-#### API Key Configurations 
-In total, the code requires four API keys: one to interact with Google services (Maps, Project Sunroof, Custom Search Engine), an additional key for the Google Custom Search Engine to identify the specific search engine, one for PVWatts, and one for Bright Data.  We store each key in a config.py file to maintian privacy.
+In total, the code requires four keys: one for PVWatts, one to interact with Google services (Maps, Project Sunroof, Custom Search Engine), an additional key for the Google Custom Search Engine to identify the specific search engine, and one for Bright Data. We store each key in a config.py file to maintain privacy. 
 
-#### Coordinates
-PVWatts and Project Sunroof both utilize coordinates to access a locations associated data.  Thus, we first developed the function get_coordinates(), which converts the list of addresses to coordinates via the Google Maps API.
+#### PVWatts API Key
 
-### Wesbites
+1. From [NREL’s PVWatts Calculator](https://pvwatts.nrel.gov/pvwatts.php) , click Help, then About, then within the Information for Developers subheading, click the hyperlinked [PVWatts V8 API](https://developer.nrel.gov/docs/solar/pvwatts/) to access the Developer Network page
 
-#### NREL's PVWatts Calculator
-NREL offers a free, public API for their PVWatts calculator, we used thier API in our function, get_capacity_factor().  The function get_capacity_factor() takes in latitude and longitude coordinates, determined by get_coordinates(), to query the PVWatts API and return the value associated witht the DC Capacity Factor.  Please see capacity_factor.py for complete instructions. 
+2. From the top menu of [NREL’s PVWatts V8 API Developer Network page](https://developer.nrel.gov/docs/solar/pvwatts/), select [Key Signup](https://developer.nrel.gov/signup ) and enter your information to receive an API key via email
 
-#### Google's Project Sunroof
+3. Upon receipt of the emailed API key, please store the key in config.py as a variable named PV_API_KEY
 
-#### Zillow
+4. For further details regarding the API used, return to the top menu of [NREL’s PVWatts V8 API Developer Network page](https://developer.nrel.gov/docs/solar/pvwatts/), select [APIs & Documentation](https://developer.nrel.gov/docs/), select [Solar](https://developer.nrel.gov/docs/solar/), then [PVWatts](https://developer.nrel.gov/docs/solar/pvwatts/), the attached code currently uses [PVWatts V8](https://developer.nrel.gov/docs/solar/pvwatts/v8/), the current version of the PVWatts API
 
-## Sources 
+#### Google API Key
+
+#### Google Custom Search Engine Parameter 
+
+#### Bright Data
+
 
 ## Contact 
