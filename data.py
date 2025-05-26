@@ -18,12 +18,12 @@ def get_data(given_excel_path, new_excel_name=None):
     for row in range(2,5):
         addr = ws.cell(row=row, column=1).value
         if not addr: continue
-        print(f"Parsing row {row} with {addr}")
+        print(f'Parsing row {row} with address "{addr}"')
         lat, lon = get_coordinates(addr)
         ws.cell(row=row, column=8, value=get_capacity_factor(lat,lon))
         ws.cell(row=row, column=9, value=asyncio.run(get_roof_space(addr.split(" ")[0],lat,lon)))
         url = get_zillow_url(addr)
-        print(url)
+        # print(url)
         ws.cell(row=row, column=10, value=url)
         if url == 'None': continue
         zillow_data = get_zillow_data(get_snapshot_id(url))

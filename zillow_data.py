@@ -44,7 +44,7 @@ def get_zillow_data(snapshotID):
 
     while 'status' in data and retry_count < 3:
         retry_count += 1
-        print(f"Retrying {retry_count}, sleeping 30s…")
+        print(f"Zillow Data Collection: Retrying {retry_count}, sleeping 30s…")
         sleep(30)
         data = requests.request('GET', url, headers=headers).json()
 
