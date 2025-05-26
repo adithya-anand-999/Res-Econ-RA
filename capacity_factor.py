@@ -38,14 +38,14 @@ def get_capacity_factor(lat, lon):
 
 
 # open excel
-wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
-ws = wb.active
+# wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
+# ws = wb.active
 
 # code to test our function 
-test_addr = ws.cell(row=8, column=1).value
-lat = ws.cell(row=8, column=2).value
-lon = ws.cell(row=8, column=3).value
-print(get_capacity_factor(lat, lon))
+# test_addr = ws.cell(row=8, column=1).value
+# lat = ws.cell(row=8, column=2).value
+# lon = ws.cell(row=8, column=3).value
+# print(get_capacity_factor(lat, lon))
 
 # for row in range(2,5):
 #    addr = ws.cell(row=row, column=1).value

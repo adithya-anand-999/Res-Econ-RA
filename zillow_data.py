@@ -73,8 +73,8 @@ def get_zillow_data(snapshotID):
 
 
 # open our excel doc
-wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
-ws = wb.active
+# wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
+# ws = wb.active
 
 # Code to test our functions
 # snapshot_id_parse(zillow_api_call("https://www.zillow.com/homedetails/150-Traincroft-NW-Medford-MA-02155/56277119_zpid/"))
@@ -82,9 +82,9 @@ ws = wb.active
 # print(zillow_api_call("https://www.zillow.com/homedetails/2506-Gordon-Cir-South-Bend-IN-46635/77050198_zpid/"))
 
 # converts a URL into final zillow data object with the required fields
-test_url = ws.cell(row=4, column=6).value
-test_data = get_zillow_data(get_snapshot_id(test_url))
-print(test_data)
+# test_url = ws.cell(row=4, column=6).value
+# test_data = get_zillow_data(get_snapshot_id(test_url))
+# print(test_data)
 
 
 

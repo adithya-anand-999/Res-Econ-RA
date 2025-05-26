@@ -55,14 +55,14 @@ async def get_roof_space(addr_num,lat,lon):
 
 
 # open excel file
-wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
-ws = wb.active
+# wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
+# ws = wb.active
 
 # code to test our function
-test_lat, test_lon = ws.cell(row=4, column=2).value, ws.cell(row=4, column=3).value
-test_addr = ws.cell(row=4, column=1).value
-test_data = data = asyncio.run(get_roof_space(test_addr.split(" ")[0],test_lat,test_lon))
-print(test_data)
+# test_lat, test_lon = ws.cell(row=4, column=2).value, ws.cell(row=4, column=3).value
+# test_addr = ws.cell(row=4, column=1).value
+# test_data = data = asyncio.run(get_roof_space(test_addr.split(" ")[0],test_lat,test_lon))
+# print(test_data)
 
 
 # writing results to excel

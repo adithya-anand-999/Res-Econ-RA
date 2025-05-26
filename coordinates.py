@@ -14,12 +14,12 @@ def get_coordinates(address, api_key=API_KEY):
     return (None)
 
 # open excel
-wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
-ws = wb.active
+# wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
+# ws = wb.active
 
 # code to test our function 
-test_addr = ws.cell(row=8, column=1).value
-print(get_coordinates(test_addr))
+# test_addr = ws.cell(row=8, column=1).value
+# print(get_coordinates(test_addr))
 
 
 # for row in range(2,5):

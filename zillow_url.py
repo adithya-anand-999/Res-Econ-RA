@@ -57,8 +57,8 @@ def get_zillow_url(addr, key=API_KEY, cx=CX):
 
 
 # open excel
-wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
-ws = wb.active
+# wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
+# ws = wb.active
 
 # simple tests of the custom_SE function
 # addrs = ["6 STANDISH CIR, ANDOVER, MA, 01810", "150 TRAINCROFT ST, MEDFORD, MA, 02155", "16 HARRIS LN, HARVARD, MA, 01451", "24 GREEN VALLEY RD, MEDWAY, MA, 02053"]
@@ -66,9 +66,9 @@ ws = wb.active
 # split_str(addrs[0])
 
 # converts an address to a zillow URL
-test_addr = ws.cell(row=2, column=1).value
-test_url = get_zillow_url(test_addr)
-print(test_url)
+# test_addr = ws.cell(row=2, column=1).value
+# test_url = get_zillow_url(test_addr)
+# print(test_url)
 
 
 
