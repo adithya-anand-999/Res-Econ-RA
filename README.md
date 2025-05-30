@@ -11,6 +11,13 @@ Below please find the setup and methodology implemented for each website.  Pleas
 
 In total, the code requires four keys: one for PVWatts, one to interact with Google services (Maps, Project Sunroof, Custom Search Engine), an additional key for the Google Custom Search Engine to identify the specific search engine, and one for Bright Data. We store each key in a config.py file to maintain privacy. 
 
+### Libraries to Install
+Run the below 2 commands in a terminal environment before running the code. This will install all the external libraries our code requires. If you don’t have pip installed on your machine you can follow this tutorial here, it has instructions for both Windows, Mac, and Linux https://pip.pypa.io/en/stable/installation/. 
+  
+pip install requests openpyxl beautifulsoup4 playwright googlemaps
+playwright install
+
+
 #### PVWatts API Key
 
 1. From [NREL’s PVWatts Calculator](https://pvwatts.nrel.gov/pvwatts.php), click "Help", then "About", within the Information for Developers subheading, click the hyperlinked "[PVWatts V8 API](https://developer.nrel.gov/docs/solar/pvwatts/)" to access the [Developer Network page](https://developer.nrel.gov/docs/solar/pvwatts/)
