@@ -14,8 +14,10 @@ In total, the code requires four keys: one for PVWatts, one to interact with Goo
 ### Libraries to Install
 Run the below two commands in a terminal environment before running the code. This will install all the external libraries our code requires. If you don’t have pip installed on your machine you can follow this tutorial here, it has instructions for both Windows, Mac, and Linux https://pip.pypa.io/en/stable/installation/. 
   
+```
 pip install requests openpyxl beautifulsoup4 playwright googlemaps
 playwright install
+```
 
 
 ### PVWatts API Key
