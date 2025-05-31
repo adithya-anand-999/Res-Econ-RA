@@ -1,4 +1,3 @@
-# E
 import urllib.request
 import json
 from config import PV_API_KEY

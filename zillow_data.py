@@ -1,9 +1,9 @@
-# E
-
 # required libraries we use.
 import requests
 from time import sleep
-import openpyxl
+
+# libraries for testing
+# import openpyxl
 
 from config import BRIGHT_DATA # API key for Bright Data APIs
 
@@ -62,11 +62,6 @@ def get_zillow_data(snapshotID, bright_data_key = BRIGHT_DATA):
         print(f"Scraping failed for snapshot {snapshotID}")
         return None
     
-    # debugging code for seeing complete json data object
-    # print(data)
-    # print("data found, pause for debugging")
-    # sleep(30)
-
     payload = {} # initializes a dictionary to which each of the required_keys is added with the values found from "data" or None if not found
     for key in required_keys:
         payload[key] = data.get(key, None)

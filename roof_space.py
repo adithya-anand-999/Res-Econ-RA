@@ -1,5 +1,3 @@
-# A
-
 # required libraries to install for function get_roof_space
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
@@ -54,7 +52,6 @@ async def get_roof_space(addr_num,lat,lon): # addr_num=number of the street addr
 
 
 # code to test our function, make sure to uncomment above library imports to run
-
 # wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 # ws = wb.active
 # test_lat, test_lon = ws.cell(row=4, column=2).value, ws.cell(row=4, column=3).value

@@ -1,5 +1,3 @@
-# E
-
 from config import API_KEY
 import googlemaps
 
@@ -17,7 +15,7 @@ def get_coordinates(address, api_key=API_KEY): # address = complete physical add
     geocode_result = gmaps.geocode(address) # calls the Google Maps Geocoding API, converts address to coordinates stored in "geocode_result"
     if geocode_result: # checks that geocode_result is not empty 
         location = geocode_result[0]['geometry']['location'] # accesses the first match (coordinates closest to address) and structure within "geocode_result" that contains the coordinates
-        return (location['lat'], location['lng']) # latitude and longitude coordinates are read a returned as a tuple
+        return (location['lat'], location['lng']) # latitude and longitude coordinates are read and returned as a tuple
     return (None) # if "geocode_result" is empty, (None) is returned 
 
 # please uncomment the indicated import and four lines below to test our function 
