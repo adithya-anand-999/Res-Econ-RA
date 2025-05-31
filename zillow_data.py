@@ -10,14 +10,21 @@ from config import BRIGHT_DATA # API key for Bright Data APIs
 # data points we are collecting
 required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
 
-# function which converts our url for an address to a unique snapshot id. More information about snapshot ID can be found <link>, it is a step in the data collection
-# framework found for Bright Data. Bright Data provides a third party zillow API we are using to collect information. 
-# TODO: write comments explaining how the code in the function works.
-def get_snapshot_id(addr_url):
+"""
+The function get_snapshot_id() takes in a zillow url, obtained via get_zillow_url(),
+and converts that url to a unique Snapshot id.  More information about snapshot ID can be found 
+at https://docs.brightdata.com/api-reference/web-scraper-api/trigger-a-collection, 
+it is a step in the data collection framework found for Bright Data.
+Bright Data provides a third party Zillow API used to collect our data points.
+get_snapshot_id() is taken directly from Bright Data's usage guidelines. 
+
+"""
+
+def get_snapshot_id(addr_url, bright_data_key = BRIGHT_DATA): # addr_url = Zillow url
     # boilerplate code from Bright Data website 
-    url = "https://api.brightdata.com/datasets/v3/trigger"
+    url = "https://api.brightdata.com/datasets/v3/trigger" 
     headers = {
-        "Authorization": BRIGHT_DATA,
+        "Authorization": bright_data_key, # sets up the HTTP request headers using the Bright Data API Key stored in config.py
         "Content-Type": "application/json",
     }
     params = {
@@ -30,25 +37,28 @@ def get_snapshot_id(addr_url):
     response = requests.post(url, headers=headers, params=params, json=data)
     return(response.json()['snapshot_id'])  # snapshot_id is a pointer to a zillow data object for this address
 
-# function parses the snapshot ID, producing a json object with all the data for the address. From this we collect the specific data points required.
 
-# TODO: write comments explaining how the code in the function works.
-def get_zillow_data(snapshotID):
+"""
+The function get_zillow_data() takes in the snapshot ID produced by get_snapshot_id(). 
+The function then parses that snapshot ID producing a json object with all the data 
+for the address. From the json object, we find and collect the specific data points required.
+"""
+def get_zillow_data(snapshotID, bright_data_key = BRIGHT_DATA):
     # boilerplate code from Bright Data
-    url = f"https://api.brightdata.com/datasets/v3/snapshot/{snapshotID}"
-    headers = {"Authorization": BRIGHT_DATA}
-    data = requests.request('GET', url, headers=headers).json()
+    url = f"https://api.brightdata.com/datasets/v3/snapshot/{snapshotID}" # builds the url to access Bright Data's dataset 
+    headers = {"Authorization": bright_data_key} # sets up the HTTP request headers using the Bright Data API Key stored in config.py
+    data = requests.request('GET', url, headers=headers).json() # sends a GET request to the Bright Data API, parses the json response stored in "data"
 
     
-    retry_count = 0
+    retry_count = 0 # a counter to keep track of retries 
 
-    while 'status' in data and retry_count < 3:
-        retry_count += 1
-        print(f"Zillow Data Collection: Retrying {retry_count}, sleeping 30s…")
-        sleep(30)
-        data = requests.request('GET', url, headers=headers).json()
+    while 'status' in data and retry_count < 3: # retries to collect data if the key 'status' is found in "data", indicating the dataset is not yet available, allows for three retries
+        retry_count += 1 
+        print(f"Zillow Data Collection: Retrying {retry_count}, sleeping 30s…") 
+        sleep(30) # waits thirty seconds before sending another GET request to obtain data, a thirty second wait was recommended by Bright Data
+        data = requests.request('GET', url, headers=headers).json() # sends a GET request to the Bright Data API, parses the json response stored in "data"
 
-    if 'status' in data:
+    if 'status' in data: # if after three retires, the dataset still fails to load, the function prints an error and returns None
         print(f"Scraping failed for snapshot {snapshotID}")
         return None
     
@@ -57,19 +67,20 @@ def get_zillow_data(snapshotID):
     # print("data found, pause for debugging")
     # sleep(30)
 
-    payload = {}
+    payload = {} # initializes a dictionary to which each of the required_keys is added with the values found from "data" or None if not found
     for key in required_keys:
         payload[key] = data.get(key, None)
     
     # print(payload)    
     # print(data['interior_full'])
-
-    payload["heating"] = payload["cooling"] = None
-    if data["interior_full"] != None:
-        for dict in data['interior_full']:
-            if dict['title'] == "Heating": payload['heating'] = dict['values'][0].split(": ")[1]
-            if dict['title'] == "Cooling": payload['cooling'] = dict['values'][0].split(": ")[1]
-    return payload
+    
+    # the heating and cooling keys are further nested in the dataset, within a section called "interior_full"
+    payload["heating"] = payload["cooling"] = None # initializes "heating" and "cooling" fields in "payload" to none
+    if data["interior_full"] != None: # checks that the "interior_full" section exists
+        for dict in data['interior_full']: # loops through each dictionary in "interior_full"
+            if dict['title'] == "Heating": payload['heating'] = dict['values'][0].split(": ")[1] # if the "Heating" key is found the value is cleaned (to get the value alone) and stored in "payload"
+            if dict['title'] == "Cooling": payload['cooling'] = dict['values'][0].split(": ")[1] # if the "Cooling" key is found the value is cleaned (to get the value alone) and stored in "payload"
+    return payload # returns "payload" with updated data 
 
 
 # open our excel doc
