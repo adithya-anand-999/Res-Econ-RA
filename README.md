@@ -32,9 +32,34 @@ playwright install
 
 ### Google API Key
 
+1. Navigate to https://console.cloud.google.com/apis/library?inv=1&invt=AbycLQ. This is the website for all Google APIs and other services, here is where we will make our Google API key. 
+
+2. Sign in/Create an account. You will be asked to provide a payment method although you won't be charged as each new account is given $300 in free credits. Of these credits our code will only use a few cents. 
+
+3. On this page https://console.cloud.google.com/apis/library search for the following API services and click enable, “Geocoding API” and “Custom Search API”. An enable button will appear once you search for an API service. 
+
+4. Navigate to https://console.cloud.google.com/apis/credentials and at the top bar click the “Create Credentials” dropdown. Then select API key. This will show a card with your Google API key, store this for use later in config.py. 
+
 ### Google Custom Search Engine Parameter 
 
+1. This website https://developers.google.com/custom-search/docs/tutorial/creatingcse contains the steps to make a custom Google Search Engine to collect zillow urls for an address.
+
+2. Click the hyperlinked [“control panel”](https://programmablesearchengine.google.com/controlpanel/create). 
+
+3. Name the search engine anything, e.g. zillow_url_collection. 
+4. Under the heading, “What to search?” paste this link: “https://www.zillow.com/” in the input box, this will make sure our search engine only looks for Zillow urls for a given query. After pasting the link click the “add” button. 
+
+5. Click the “create” button after completing the bot check. 
+
+6. You should now see three lines of code on your screen, the first line should read something like this: <script async src="https://cse.google.com/cse.js?cx=xxxxxxxxxxxxxxxx"> (I have replaced the cx parameter with x’s as a placeholder, you should see a string of numbers and letters). The cx parameter is what we need. Store this cx parameter, it will be used in config.py later. 
+
 ### Bright Data
+
+1. From [Bright Data’s home page](https://brightdata.com/), on the top right corner, click login 
+
+2. After signing in, on the bottom left corner of the left menu, click “Account Settings”
+
+3. In the API keys section, store the key for use in config.py, this is your Bright Data API Key
 
 
 ## Contact 
