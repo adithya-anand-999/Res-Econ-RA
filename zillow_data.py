@@ -7,6 +7,8 @@ from time import sleep
 
 from config import BRIGHT_DATA # API key for Bright Data APIs
 
+#TODO: explain how to get other datapoints, other keys 
+
 # data points we are collecting
 required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
 
