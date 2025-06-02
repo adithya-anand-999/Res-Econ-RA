@@ -17,9 +17,10 @@ def get_data(excel_path):
     # open excel
     wb = openpyxl.load_workbook(excel_path)
     ws = wb.active
+    end_row = ws.max_row
 
     # calls our data collection functions for each row specified in the args
-    for row in range(2,5): # first arg inclusive, second arg exclusive
+    for row in range(2,end_row+1): # first arg inclusive, second arg exclusive. Because second arg exclusive we should do end_row+1
         addr = ws.cell(row=row, column=1).value
         if not addr: continue
         print(f'Parsing row {row} with address "{addr}"')
