@@ -3,7 +3,7 @@ import urllib.request
 import json
 from config import PV_API_KEY
 
-# required libraries for testing function, uncomment if running testing block at end. 
+# to run the test at the end of the file, please uncomment the below import
 # import openpyxl
 
 """
@@ -20,7 +20,7 @@ def get_capacity_factor(lat, lon, api_key = PV_API_KEY): # lat = latitude and lo
     pv_data = json.loads(response.read()) # the response json is read and loaded into a dictionary stored in "pv_data"
     return pv_data["outputs"]["capacity_factor"] # the capacity factor value is read and returned from "pv_data"
 
-# code to test our function, make sure to uncomment above library imports to run
+# please uncomment the indicated import and six lines below to test our function
 # wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 # ws = wb.active
 # test_addr = ws.cell(row=8, column=1).value

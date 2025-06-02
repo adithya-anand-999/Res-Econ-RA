@@ -23,7 +23,7 @@ def get_data(excel_path):
     for row in range(2,end_row+1): # first arg inclusive, second arg exclusive. Because second arg exclusive we should do end_row+1
         addr = ws.cell(row=row, column=1).value
         if not addr: continue
-        print(f'Parsing row {row} with address "{addr}"')
+        print(f'Parsing row {row-1} with address "{addr}"')
         lat, lon = get_coordinates(addr)
         ws.cell(row=row, column=8, value=get_capacity_factor(lat,lon))
         ws.cell(row=row, column=9, value=asyncio.run(get_roof_space(addr.split(" ")[0],lat,lon)))
