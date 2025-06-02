@@ -1,6 +1,7 @@
+# required libraries for function get_snapshot_id and get_zillow_url
 import requests
 
-# libraries to install for testing
+# required libraries for testing function, uncomment if running testing block at end. 
 # import openpyxl
 # import time
 
@@ -33,9 +34,7 @@ are defaulted to the keys designated in the config.py file.
 """
 
 def get_zillow_url(addr, key=API_KEY, cx=CX): # addr = address to search, key = Google API Key, cx = Google Custom Search Engine Key 
-    # if not addr:
-    #     print(f"no address")
-    #     return None
+    # addr will always exist, so that check is forgone here
     url=f"https://www.googleapis.com/customsearch/v1?key={key}&cx={cx}&q={addr}" # builds the custom search request url using each parameter 
     try:
         response = requests.get(url=url).json() # sends a GET request to the custom search url, parses the response as a json
@@ -60,9 +59,8 @@ def get_zillow_url(addr, key=API_KEY, cx=CX): # addr = address to search, key = 
     return "None" # if a match is not found or an error occurs, None is returned 
 
 
-
-# simple tests of the get_zillow_url function
-# addrs = ["6 STANDISH CIR, ANDOVER, MA, 01810", "150 TRAINCROFT ST, MEDFORD, MA, 02155", "16 HARRIS LN, HARVARD, MA, 01451", "24 GREEN VALLEY RD, MEDWAY, MA, 02053"]
-# custom_SE_with_str_check(addrs[3])
-# split_str(addrs[0])
-
+# code to test our function, make sure to uncomment above library imports to run
+# wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
+# ws = wb.active
+# test_url = get_zillow_url(ws.cell(row=4, column=1))
+# print(test_url)

@@ -1,13 +1,18 @@
-# required libraries we use.
+# required libraries for function get_snapshot_id and get_zillow_data
 import requests
 from time import sleep
 
-# libraries for testing
+# required libraries for testing function, uncomment if running testing block at end. 
 # import openpyxl
 
 from config import BRIGHT_DATA # API key for Bright Data APIs
 
-#TODO: explain how to get other data points, other keys 
+# NOTE How to add other data point for zillow collection 
+# We found our keys by reading the raw JSON output from our API call, comparing the values we wanted with their respective key in the JSON data. Through this we found the elements of 'required_keys'
+# which are the keys whose values are the data points we were asked to collect. If one wanted to find additional data points the workflow would be as follows. Choose some sample address and run the 
+# below 2 functions but modify get_zillow_data to print out 'data' which contains the entire JSON output of our API call. Now for each additional data point to collect see which key contains that value 
+# in 'data'. To note, sometimes the values could be nested within multiple keys, an example of this for us was heating and cooling; if this occurs one would have to navigate through the JSON tree, 
+# one can use how we found heating and cooling as an example of how to accomplish this. 
 
 # data points we are collecting
 required_keys = ["zestimate", "taxAssessedValue", "taxAssessedYear", "dateSoldString", "livingArea", "yearBuilt", "lotAreaValue", "lotAreaUnits"]
@@ -21,7 +26,6 @@ Bright Data provides a third party Zillow API used to collect our data points.
 get_snapshot_id() is taken directly from Bright Data's usage guidelines. 
 
 """
-
 def get_snapshot_id(addr_url, bright_data_key = BRIGHT_DATA): # addr_url = Zillow url
     # boilerplate code from Bright Data website 
     url = "https://api.brightdata.com/datasets/v3/trigger" 
@@ -67,10 +71,7 @@ def get_zillow_data(snapshotID, bright_data_key = BRIGHT_DATA):
     payload = {} # initializes a dictionary to which each of the required_keys is added with the values found from "data" or None if not found
     for key in required_keys:
         payload[key] = data.get(key, None)
-    
-    # print(payload)    
-    # print(data['interior_full'])
-    
+
     # the heating and cooling keys are further nested in the dataset, within a section called "interior_full"
     payload["heating"] = payload["cooling"] = None # initializes "heating" and "cooling" fields in "payload" to none
     if data["interior_full"] != None: # checks that the "interior_full" section exists
@@ -80,47 +81,9 @@ def get_zillow_data(snapshotID, bright_data_key = BRIGHT_DATA):
     return payload # returns "payload" with updated data 
 
 
-# open our excel doc
+# code to test our function, make sure to uncomment above library imports to run
 # wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 # ws = wb.active
-
-# Code to test our functions
-# snapshot_id_parse(zillow_api_call("https://www.zillow.com/homedetails/150-Traincroft-NW-Medford-MA-02155/56277119_zpid/"))
-# print(snapshot_id_parse(zillow_api_call("https://www.zillow.com/homedetails/2506-Gordon-Cir-South-Bend-IN-46635/77050198_zpid/")))
-# print(zillow_api_call("https://www.zillow.com/homedetails/2506-Gordon-Cir-South-Bend-IN-46635/77050198_zpid/"))
-
-# converts a URL into final zillow data object with the required fields
 # test_url = ws.cell(row=4, column=6).value
 # test_data = get_zillow_data(get_snapshot_id(test_url))
 # print(test_data)
-
-
-
-
-# # loops over the rows in our excel. Bounds are inclusive of first arg, exclusive of second arg. Use the row numbers found in the excel. So to include row 3 you
-# # would set your first arg to 3.
-# for row in range(155,211):
-#     # grab the url for 'row' found in column 6
-#     url = ws.cell(row=row, column=6).value
-
-#     # if url does not exist skips to next url
-#     if url == "None": continue
-#     print(f"Collecting row {row} with url = {url}")
-
-#     # collect the data for the url
-#     data = snapshot_id_parse(zillow_api_call(url))
-
-#     # if data collection for the url failed, snapshot_id_parse will return None. Then this conditional will run skipping this row as no data has been collected.
-#     if data == None: continue
-
-#     # for each data point, write to a separate column in our excel, if the data point does not exist we write "None"
-#     for i,point in enumerate(data.values()):
-#         ws.cell(row=row, column=7+i, value=point if point else "None")
-    
-#     # as changes have been made to the excel in the above code, save the changes
-#     wb.save('res-econ_RA_data.xlsx')
-    
-#     # print(f"data collection for {url} done")
-#     sleep(5)
-
-# print("Data collection finished!")

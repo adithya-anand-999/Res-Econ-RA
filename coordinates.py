@@ -1,3 +1,4 @@
+# required libraries for function get_coordinates
 from config import API_KEY
 import googlemaps
 
@@ -18,7 +19,8 @@ def get_coordinates(address, api_key=API_KEY): # address = complete physical add
         return (location['lat'], location['lng']) # latitude and longitude coordinates are read and returned as a tuple
     return (None) # if "geocode_result" is empty, (None) is returned 
 
-# please uncomment the indicated import and four lines below to test our function 
+
+# code to test our function, make sure to uncomment above library imports to run
 # wb = openpyxl.load_workbook('./res-econ_RA_data.xlsx')
 # ws = wb.active
 # test_addr = ws.cell(row=8, column=1).value
