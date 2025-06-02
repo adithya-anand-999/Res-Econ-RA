@@ -62,4 +62,11 @@ playwright install
 3. In the API keys section, store the key for use in config.py, this is your Bright Data API Key
 
 
-## Contact 
+## Contact
+
+Adithya Anand 
+adithyaanand817@gmail.com 
+
+Elizabeth O'Brien 
+obrien.elizabethkennedy@gmail.com 
+
